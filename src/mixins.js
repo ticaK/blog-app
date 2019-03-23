@@ -1,5 +1,4 @@
 import moment from 'moment'
-
 export const DateMixin = {
     filters:{
         formatDate (str, outputFormat = 'YYYY-MM-DD HH:mm:ss'){
@@ -7,9 +6,7 @@ export const DateMixin = {
         },
         diffForHumans (str){
             return moment(str).fromNow();
-
         }
-
     }
 }
 

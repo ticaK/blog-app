@@ -1,15 +1,13 @@
 <template>
     <div>
         <form @submit.prevent="addComment">
-
             <div class="form-group"> 
-                <label>Text:</label>
-                <input type="text" class="form-control" v-model="comment.text" required >
+                <textarea rows="4" cols="50" placeholder="add comment.." required v-model="comment.text">
+                </textarea>
             </div>
-     
-            <button class="btn btn-success" type="submit">Add comment</button>
-            
+            <button class="btn btn-success" type="submit">Add comment</button>    
         </form>
+        <!-- napomena: mogla sam napraviti i CommentForm.vue, ali nema potrebe, realno -->
     </div>
 </template>
 
@@ -29,7 +27,3 @@ export default {
     }
 }
 </script>
-
-<style>
-
-</style>

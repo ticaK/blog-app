@@ -1,21 +1,20 @@
 <template>
     <div>
-       <h1>{{post.title}}</h1>
-       <p>{{post.text}}</p>
-       <small>createdAt: {{post.createdAt|formatDate}} </small>
+        <div class="single-post">
+            <h1>{{post.title}}</h1>
+            <p>{{post.text}}</p>
+            <i>created at: {{post.createdAt|diffForHumans}} </i>
+        </div> <br>
+       <AddComment :comment="comment" @add-comment="addComment"/><br>
 
-       <AddComment :comment="comment" @add-comment="addComment"/>
-
-       <h3>Comments</h3>
-      
-        <CommentList :comments="comments"/>      
+      <CommentList :comments="comments"/>      
     </div>
 </template>
 
 <script>
 import {postsService} from '../services/PostsService'
-import AddComment from './AddComment'
-import CommentList from './CommentList'
+import AddComment from '../containers/AddComment'
+import CommentList from '../components/CommentList'
 import {DateMixin} from '../mixins'
 
 
@@ -25,16 +24,17 @@ export default {
         CommentList
     },
 
-    mixins:[DateMixin],
-
-    
     data(){
         return {
             post:{},
             comment:{},
         }
     },
+
     props:["id"],
+
+    mixins:[DateMixin],
+
     async created() {
         try{
             const{data}=await postsService.get(this.id);
@@ -59,14 +59,12 @@ export default {
         comments() {
             return this.post.comments
         }
-    }
-
-        
-    
-    
+    } 
 }
 </script>
 
 <style>
-
+    .single-post{
+        background-color: rgb(230, 230, 236);
+    }
 </style>
