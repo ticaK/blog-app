@@ -30,6 +30,11 @@ export default class PostsService {
         
     }
 
+    deleteComment(commentId, postId){
+        return http.delete(`/posts/${postId}/comments/${commentId}`)
+
+    }
+
 
 
     

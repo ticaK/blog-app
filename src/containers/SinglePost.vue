@@ -7,7 +7,7 @@
         </div> <br>
        <AddComment :comment="comment" @add-comment="addComment"/><br>
 
-      <CommentList :comments="comments"/>      
+      <CommentList @delete-comment="deleteComment" :comments="comments"/>      
     </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
     data(){
         return {
             post:{},
-            comment:{},
+            comment:{}
         }
     },
 
@@ -49,9 +49,24 @@ export default {
                 .then((success) => {
                     this.comments.push(this.comment)
                     this.comment = {}
+                    //  location.reload()
+
                 }).catch((error)=>{
                          console.log(error)
                 })
+      },
+      deleteComment(comment){
+          let check=confirm("Do you really want to delete this comment?")
+          if(check){
+              postsService.deleteComment(comment.id,this.post.id)
+              .then((success) => {
+                 let i=this.comments.indexOf(comment)
+                 this.comments.splice(i, 1)                
+            }).catch((error)=>{
+                         console.log(error)
+                })
+          }
+          
       }
  
     },

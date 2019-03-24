@@ -19,7 +19,7 @@ export default {
     props:["id"],
     async created() {
         try{
-            const{data}=await postsService.getAll();
+            const{data}=await postsService.getAll(); //kupimo data iz response objekta
             this.posts=data;
         } catch(error) {
             console.log(error);
@@ -27,16 +27,20 @@ export default {
     },
     methods:{
         deletePost(post) {
-            postsService.delete(post.id)
-            .then((success)=>{
-                this.posts = this.posts.filter(p => p !== post)
-            })
-            .catch((error)=>{
-                concole.log(error);
-            })
+            let  question = confirm("Do you really want to delete this post?");
+            if(question) {
+                postsService.delete(post.id)
+                .then((success)=>{
+                    this.posts = this.posts.filter(p => p !== post)
+                })
+                .catch((error)=>{
+                    console.log(error);
+                })
+            } 
         }  
     }  
 }
+
 </script>
 
 <style>
