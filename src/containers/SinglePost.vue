@@ -46,8 +46,8 @@ export default {
     methods:{
         addComment(){
             postsService.addComment(this.comment,this.post.id)
-                .then((success) => {
-                    this.comments.push(this.comment)
+                .then((response) => {
+                    this.comments.push(response.data)
                     this.comment = {}
                     //  location.reload()
 
@@ -56,6 +56,7 @@ export default {
                 })
       },
       deleteComment(comment){
+          console.log(comment);
           let check=confirm("Do you really want to delete this comment?")
           if(check){
               postsService.deleteComment(comment.id,this.post.id)
